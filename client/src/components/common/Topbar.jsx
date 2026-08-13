@@ -50,7 +50,7 @@ const Topbar = () => {
       <Sidebar open={sidebarOpen} toggleSidebar={toggleSidebar} />
       <ScrollAppBar>
         <AppBar elevation={0} sx={{ zIndex: 9999 }}>
-          <Toolbar sx={{ alignItems: "center", justifyContent: "space-between" }}>
+          <Toolbar sx={{ alignItems: "center", justifyContent: "space-between", position: "relative", minHeight: { xs: 72, md: 80 } }}>
             <Stack direction="row" spacing={1} alignItems="center">
               <IconButton
                 color="inherit"
@@ -63,13 +63,22 @@ const Topbar = () => {
               <Box sx={{ display: { xs: "inline-block", md: "none" } }}>
                 <Logo />
               </Box>
+
+              <Box sx={{ display: { xs: "none", md: "inline-block" } }}>
+                <Logo />
+              </Box>
             </Stack>
 
             {/* main menu */}
-            <Box flexGrow={1} alignItems="center" display={{ xs: "none", md: "flex" }}>
-              <Box sx={{ marginRight: "30px" }}>
-                <Logo />
-              </Box>
+            <Box
+              alignItems="center"
+              display={{ xs: "none", md: "flex" }}
+              sx={{
+                position: "absolute",
+                left: "50%",
+                transform: "translateX(-50%)"
+              }}
+            >
               {menuConfigs.main.map((item, index) => (
                 <Button
                   key={index}
@@ -102,8 +111,8 @@ const Topbar = () => {
               >
                 sign in
               </Button>}
+              {user && <UserMenu />}
             </Stack>
-            {user && <UserMenu />}
             {/* user menu */}
           </Toolbar>
         </AppBar>
